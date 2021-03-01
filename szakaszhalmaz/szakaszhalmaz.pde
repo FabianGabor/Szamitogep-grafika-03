@@ -8,6 +8,7 @@ Készítsen diszkrét szakaszhalmazt megjelenítő alkalmazást statikusan és d
 Dinamikus: első kattintásra nem történik semmi, a második kattintásig folyamatosan megjelenik az az egyértelmű szakasz, melyet az első kattintás és az egér aktuális pozíciója definiál. Második kattintásra megjelenik az első és a második kattintás által definiált egyértelmű szakasz.)
 */
 Table table;
+boolean closed = false;
 
 void setup() {
     size(640, 480);
@@ -34,7 +35,14 @@ void drawLines(Table table) {
         x = table.getRow(i+1).getInt("x");
         y = table.getRow(i+1).getInt("y");
         
-        line(x,y,x0,y0);
+        line(x,y,x0,y0);                        // temp solution
+    }
+    
+    if (i > 1 && closed) {
+        x0 = table.getRow(0).getInt("x");
+        y0 = table.getRow(0).getInt("y");
+        
+        line(x,y,x0,y0);                        // temp solution
     }
 }
 
@@ -42,4 +50,8 @@ void mousePressed() {
     TableRow newRow = table.addRow();    
     newRow.setInt("x", mouseX);
     newRow.setInt("y", mouseY); //<>//
+}
+
+void keyPressed() {
+    closed = !closed;
 }
