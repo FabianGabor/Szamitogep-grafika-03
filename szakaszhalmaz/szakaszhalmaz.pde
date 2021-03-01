@@ -25,7 +25,7 @@ void draw() {
 
     textSize(12);
     text("SHIFT: toggle open/closed shape", 5, 12); 
-    text("TAB: toggle dynamic drawing", 5, 30);
+    text("TAB:   toggle dynamic drawing", 5, 30);
     fill(122);
 }
 
