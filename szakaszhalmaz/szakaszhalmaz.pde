@@ -79,8 +79,10 @@ void mousePressed() {
     TableRow newRow = table.addRow();    
     newRow.setInt("x", mouseX);
     newRow.setInt("y", mouseY);
+    redraw();
 }
 
 void keyPressed() {
     closed = !closed;
+    redraw();
 }
