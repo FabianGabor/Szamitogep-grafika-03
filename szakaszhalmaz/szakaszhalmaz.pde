@@ -1,4 +1,4 @@
-/* Fábián Gábor //<>// //<>//
+/* Fábián Gábor //<>// //<>// //<>// //<>//
  * CXNU8T
  */
 /* 
@@ -9,6 +9,7 @@
  */
 Table table;
 boolean closed = false;
+boolean dynamic = false;
 
 void setup() {
     size(640, 480);
@@ -21,6 +22,11 @@ void setup() {
 void draw() {
     background(204);
     drawLines(table);
+
+    textSize(12);
+    text("SHIFT: toggle open/closed shape", 5, 12); 
+    text("TAB: toggle dynamic drawing", 5, 30);
+    fill(122);
 }
 
 void drawLine(float x, float y, float x0, float y0) {
@@ -54,6 +60,11 @@ void drawLines(Table table) {
     int x, y, x0, y0, i;
     x = 0;
     y = 0;
+    
+    if (table.getRowCount() > 0) {
+        x = table.getRow(0).getInt("x");
+        y = table.getRow(0).getInt("y");
+    }
 
     for (i = 0; i < table.getRowCount()-1; i++) {
         x0 = table.getRow(i).getInt("x");
@@ -63,7 +74,11 @@ void drawLines(Table table) {
         y = table.getRow(i+1).getInt("y");
 
         //line(x, y, x0, y0);                        // temp solution
-        drawLine(x,y,x0,y0);
+        drawLine(x, y, x0, y0);
+    }
+    
+    if (dynamic) {
+        drawLine(x, y, mouseX, mouseY);
     }
 
     if (i > 1 && closed) {
@@ -71,7 +86,7 @@ void drawLines(Table table) {
         y0 = table.getRow(0).getInt("y");
 
         //line(x, y, x0, y0);
-        drawLine(x,y,x0,y0);
+        drawLine(x, y, x0, y0);
     }
 }
 
@@ -83,6 +98,12 @@ void mousePressed() {
 }
 
 void keyPressed() {
-    closed = !closed;
-    redraw();
+    if (keyCode == SHIFT) {
+        closed = !closed;
+        redraw();
+    }
+    if (key == TAB) {
+        dynamic = !dynamic;
+        redraw();
+    }
 }
