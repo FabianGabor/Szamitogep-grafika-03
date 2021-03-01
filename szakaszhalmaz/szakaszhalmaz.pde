@@ -19,4 +19,10 @@ void setup() {
 
 void draw() {
     background(204);
-} //<>// //<>//
+}
+ //<>//
+void mousePressed() {
+    TableRow newRow = table.addRow();    
+    newRow.setInt("x", mouseX);
+    newRow.setInt("y", mouseY); //<>//
+}
