@@ -60,7 +60,7 @@ void drawLines(Table table) {
     int x, y, x0, y0, i;
     x = 0;
     y = 0;
-    
+
     if (table.getRowCount() > 0) {
         x = table.getRow(0).getInt("x");
         y = table.getRow(0).getInt("y");
@@ -73,10 +73,9 @@ void drawLines(Table table) {
         x = table.getRow(i+1).getInt("x");
         y = table.getRow(i+1).getInt("y");
 
-        //line(x, y, x0, y0);                        // temp solution
         drawLine(x, y, x0, y0);
     }
-    
+
     if (dynamic) {
         drawLine(x, y, mouseX, mouseY);
     }
@@ -85,25 +84,25 @@ void drawLines(Table table) {
         x0 = table.getRow(0).getInt("x");
         y0 = table.getRow(0).getInt("y");
 
-        //line(x, y, x0, y0);
-        drawLine(x, y, x0, y0);
+        if (dynamic) {
+            drawLine(x0, y0, mouseX, mouseY);
+        } else {
+            drawLine(x, y, x0, y0);
+        }
     }
 }
 
 void mousePressed() {
     TableRow newRow = table.addRow();    
     newRow.setInt("x", mouseX);
-    newRow.setInt("y", mouseY);
-    redraw();
+    newRow.setInt("y", mouseY);    
 }
 
 void keyPressed() {
     if (keyCode == SHIFT) {
-        closed = !closed;
-        redraw();
+        closed = !closed;        
     }
     if (key == TAB) {
-        dynamic = !dynamic;
-        redraw();
+        dynamic = !dynamic;        
     }
 }
